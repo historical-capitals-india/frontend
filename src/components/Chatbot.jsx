@@ -23,7 +23,7 @@ const Chatbot = () => {
     setMessage('');
 
     try {
-      const res = await fetch('https://historic-capitals-india-btp2-1.onrender.com/chat', {
+      const res = await fetch('https://chatbot-hurc.onrender.com/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

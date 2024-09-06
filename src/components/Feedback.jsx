@@ -18,7 +18,7 @@ function Feedback({ onClose }) {
 
   const handleFeedback = async (e) => {
     e.preventDefault();
-    const res = await fetch("https://historic-capitals-india-btp2.onrender.com/sendmail", {
+    const res = await fetch("https://backend-node-y6o2.onrender.com/sendmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

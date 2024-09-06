@@ -32,8 +32,8 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let dataUrl = `https://historic-capitals-india-btp2.onrender.com/${selectedPeriod}/data`;
-        let locationUrl = `https://historic-capitals-india-btp2.onrender.com/${selectedPeriod}/location`;
+        let dataUrl = `https://backend-node-y6o2.onrender.com/${selectedPeriod}/data`;
+        let locationUrl = `https://backend-node-y6o2.onrender.com/${selectedPeriod}/location`;
 
         const [dataResponse, locationResponse] = await Promise.all([
           fetch(dataUrl),
