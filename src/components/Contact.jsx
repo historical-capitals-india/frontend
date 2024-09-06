@@ -1,12 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import rayaanImg from '../assets/rayaan.png';
-import yashImg from '../assets/yash.png';
-import santhoshiniImg from '../assets/santhoshini.png';
+import { useEffect, useState } from 'react';
 
 function Contact({ onClose }) {
-  return (
+  let [imgData, setImgData] = useState(null);
+    useEffect(() => {
+      const fetchImg = async () => {
+        try {
+          let imgUrls = ['yash', 'rayaan', 'santhoshini'].map((name) => `https://backend-node-y6o2.onrender.com/image/${name}`);
+          const imgResponses = await Promise.all(imgUrls.map((url) => fetch(url)));
+          const imgBlobs = await Promise.all(imgResponses.map((response) => response.blob()));
+          const data = imgBlobs.map((blob) => URL.createObjectURL(blob));
+          setImgData(data);
+        }
+        catch (error) {
+          console.error("There was a problem with the fetch operation:", error);
+        }
+      }
+      fetchImg();
+    }, []);
+    return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50 mt-16">
       <div className="relative flex flex-col items-center p-2 bg-[#f5e0c3] rounded-lg font-serif h-[72vh] md:h-[80vh] w-[80vw] md:w-[60vw] overflow-y-auto md:overflow-hidden shadow-2xl border border-[#8b5e3c]">
         <button
@@ -24,7 +38,7 @@ function Contact({ onClose }) {
         </div>
         <div className="flex flex-col items-center my-0 md:flex-row md:justify-evenly p-1">
           <div className="flex-shrink-0 w-full m-2 md:w-1/3 h-[40vh] flex flex-col items-center bg-[#f2dcc4] rounded-lg shadow-lg py-5 px-0 transform transition-all hover:scale-105 border border-[#8b5e3c]">
-            <img src={yashImg} alt="Yash Shivhare" className="rounded-full w-32 h-32 mb-4" />
+            {imgData && <img src={imgData[0]} alt="Yash Shivhare" className="rounded-full w-32 h-32 mb-4" />}
             <div className="text-center">
               <p className="font-semibold text-lg text-[#8b5e3c]">Yash Shivhare</p>
               <p className="text-sm text-[#6e4d31]">CSE IIITH</p>
@@ -42,7 +56,7 @@ function Contact({ onClose }) {
             </div>
           </div>
           <div className="flex-shrink-0 w-full m-2 md:w-1/3 h-[40vh] flex flex-col items-center bg-[#f2dcc4] rounded-lg shadow-lg py-5 px-0 transform transition-all hover:scale-105 border border-[#8b5e3c]">
-            <img src={rayaanImg} alt="Rayaan Khan" className="rounded-full w-32 h-32 mb-4" />
+          {imgData && <img src={imgData[1]} alt="Rayaan Khan" className="rounded-full w-32 h-32 mb-4" />}
             <div className="text-center">
               <p className="font-semibold text-lg text-[#8b5e3c]">Rayaan Khan</p>
               <p className="text-sm text-[#6e4d31]">CSE IIITH</p>
@@ -60,7 +74,7 @@ function Contact({ onClose }) {
             </div>
           </div>
           <div className="flex-shrink-0 w-full m-2 md:w-1/3 h-[40vh] flex flex-col items-center bg-[#f2dcc4] rounded-lg shadow-lg py-5 px-0 transform transition-all hover:scale-105 border border-[#8b5e3c]">
-            <img src={santhoshiniImg} alt="Santhoshini Thota" className="rounded-full w-32 h-32 mb-4" />
+            {imgData && <img src={imgData[2]} alt="Santhoshini Thota" className="rounded-full w-32 h-32 mb-4" />}
             <div className="text-center">
               <p className="font-semibold text-lg text-[#8b5e3c]">Santhoshini Thota</p>
               <p className="text-sm text-[#6e4d31]">CSE IIITH</p>
