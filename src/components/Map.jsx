@@ -7,20 +7,20 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 const customIcon = new L.Icon({
-    iconUrl: markerIcon, // Path to your custom marker image
-    iconSize: [25, 41], // Custom icon size
-    iconAnchor: [12, 41], // Position of the icon relative to the coordinates
-    shadowUrl: markerShadow, // Default shadow
-    shadowSize: [41, 41], // Size of the shadow
-    shadowAnchor: [12, 41], // Anchor point of the shadow (align it with the iconAnchor)
-  });
-  
+  iconUrl: markerIcon,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  shadowUrl: markerShadow,
+  shadowSize: [41, 41],
+  shadowAnchor: [12, 41],
+});
+
 function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [currData, setCurrData] = useState([]);
   const [location, setLocation] = useState({});
-  const [filteredData, setFilteredData] = useState([]); // For filtered search results
-  const [searchQuery, setSearchQuery] = useState(""); // State for search input
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const markersRef = useRef([]);
   const [mapCenter, setMapCenter] = useState([23.512, 80.329]);
   const [mapZoom, setMapZoom] = useState(4);
@@ -48,7 +48,7 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
         const locData = await locationResponse.json();
 
         setCurrData(data.points);
-        setFilteredData(data.points); 
+        setFilteredData(data.points);
         setLocation(locData);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
@@ -56,7 +56,7 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
     };
 
     fetchData();
-  }, [selectedPeriod]); 
+  }, [selectedPeriod]);
 
   const handlePlaceClick = (index) => {
     const marker = markersRef.current[index];
@@ -80,7 +80,6 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
     setFilteredData(filtered);
   };
 
-  // This component updates the map center and zoom
   const MapController = ({ center, zoom }) => {
     const map = useMap();
     useEffect(() => {
@@ -135,7 +134,7 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
           LOCATIONS LIST
         </div>
         <button
-          className="z-30 md:hidden absolute top-1/2 -left-10 transform -translate-y-1/2 bg-gray-900 text-white p-2 rounded"
+          className="z-30 md:hidden absolute top-1/2 -left-10 transform -translate-y-1/2 bg-yellow-800 text-white px-3 py-2 rounded-e-md"
           onClick={toggleSidebar}
         >
           {isSidebarVisible ? ">" : "<"}
@@ -148,21 +147,25 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
             onChange={handleSearch}
             className="w-full p-2 mb-4 text-black rounded"
           />
-          <ul className="space-y-2 ">
+          <ul className="space-y-2">
             {filteredData.map((place, index) => (
               <li
                 key={index}
-                className="text-black font-serif hover:scale-105 hover:bg-yellow-800/40 text-lg"
+                className="text-black font-serif hover:scale-105 hover:bg-yellow-800/40 text-lg group"
+                title={place.current_name} 
               >
-                <a href="#" onClick={() => handlePlaceClick(index)}>
+                <a href="#" onClick={() => handlePlaceClick(index)} className="group-hover:underline">
                   {index + 1}. {place.city}
+                  {place.current_name && (
+                    <span className="hidden group-hover:inline text-sm">
+                      {" "} (Currently: {place.current_name})
+                    </span>
+                  )}
                 </a>
               </li>
             ))}
             {filteredData.length === 0 && (
-              <li className="text-black font-serif text-lg">
-                No results found
-              </li>
+              <li className="text-black font-serif text-lg">No results found</li>
             )}
           </ul>
         </div>
@@ -170,7 +173,7 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
 
       {!isSidebarVisible && (
         <button
-          className="md:hidden absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-900 text-white p-2 rounded"
+          className="md:hidden absolute top-1/2 right-0 transform -translate-y-1/2 bg-yellow-800/90  text-white px-3 py-2 rounded-s-md"
           onClick={toggleSidebar}
         >
           {"<"}

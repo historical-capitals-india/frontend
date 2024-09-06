@@ -8,7 +8,7 @@ import santhoshiniImg from '../assets/santhoshini.png';
 function Contact({ onClose }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50 mt-16">
-      <div className="relative flex flex-col items-center p-4 bg-[#f5e0c3] rounded-lg font-serif h-[72vh] md:h-[80vh] w-[80vw] md:w-[60vw] overflow-y-auto md:overflow-hidden shadow-2xl border border-[#8b5e3c]">
+      <div className="relative flex flex-col items-center p-2 bg-[#f5e0c3] rounded-lg font-serif h-[72vh] md:h-[80vh] w-[80vw] md:w-[60vw] overflow-y-auto md:overflow-hidden shadow-2xl border border-[#8b5e3c]">
         <button
           className="absolute top-2 right-2 text-2xl text-[#8b5e3c] hover:text-[#a3724d]"
           onClick={onClose}
@@ -22,7 +22,7 @@ function Contact({ onClose }) {
             We are undergraduate students in our fourth year at IIIT Hyderabad. This website is a part of our BTP project under the guidance of Professor R.C. Prasad. We are passionate computer science students and are thrilled to share this website with you. Feel free to contact us for collaborations or freelance work.
           </p>
         </div>
-        <div className="flex flex-col items-center my-3 md:flex-row md:justify-evenly p-2">
+        <div className="flex flex-col items-center my-0 md:flex-row md:justify-evenly p-1">
           <div className="flex-shrink-0 w-full m-2 md:w-1/3 h-[40vh] flex flex-col items-center bg-[#f2dcc4] rounded-lg shadow-lg py-5 px-0 transform transition-all hover:scale-105 border border-[#8b5e3c]">
             <img src={yashImg} alt="Yash Shivhare" className="rounded-full w-32 h-32 mb-4" />
             <div className="text-center">
