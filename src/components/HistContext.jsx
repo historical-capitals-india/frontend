@@ -34,13 +34,13 @@ const HistContext = ({ sharedVariable }) => {
           </div>
           <div className="w-[90vw] md:w-[80vw] h-[60vh] bg-white/50 rounded-md text-xl text-left px-[3%] pt-[2%] overflow-y-auto font-serif">
             <div className="pb-8">
-              <h1 className="text-2xl md:text-2xl font-bold font-serif">
+              <h1 className="text-2xl md:text-xl font-bold font-serif">
                 Dynasty:{" "}
                 <span className="text-md font-normal">
                   {sharedVariable["dynasty"]}
                 </span>
               </h1>
-              <h1 className="text-2xl md:text-2xl font-bold font-serif">
+              <h1 className="text-2xl md:text-xl font-bold font-serif">
                 Empire:{" "}
                 <span className="text-md font-normal">
                   {sharedVariable["empire"]}
