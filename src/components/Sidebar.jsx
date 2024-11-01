@@ -1,9 +1,8 @@
-import React from "react";
-import { FaTimes } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa"; // Import arrow icon
 import Logo1 from "../assets/logo1.png"; // Logo for the sidebar
+import PropTypes from 'prop-types';
 
-const Sidebar = ({ isOpen, toggleSidebar, toggleContact, toggleFeedback, toggleAbout }) => {
+const Sidebar = ({ isOpen, toggleContact, toggleFeedback, toggleAbout }) => {
   return (
     <div className={`fixed inset-0 bg-white z-30 flex flex-col overflow-y-auto transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
       <div className="flex items-center justify-between p-4 border-b">
@@ -35,6 +34,13 @@ const Sidebar = ({ isOpen, toggleSidebar, toggleContact, toggleFeedback, toggleA
       </div>
     </div>
   );
+};
+Sidebar.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
+  toggleContact: PropTypes.func.isRequired,
+  toggleFeedback: PropTypes.func.isRequired,
+  toggleAbout: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

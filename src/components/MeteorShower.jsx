@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const MeteorShower = ({ count }) => {
   useEffect(() => {
@@ -22,6 +23,9 @@ const MeteorShower = ({ count }) => {
   }, [count]);
 
   return <div className="meteor-shower-container absolute inset-0 overflow-hidden pointer-events-none"></div>;
+};
+MeteorShower.propTypes = {
+  count: PropTypes.number.isRequired,
 };
 
 export default MeteorShower;

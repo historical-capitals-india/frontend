@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import L from "leaflet";
+import PropTypes from "prop-types";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet/dist/images/marker-icon-2x.png";
@@ -15,7 +17,7 @@ const customIcon = new L.Icon({
   shadowAnchor: [12, 41],
 });
 
-function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
+function Map({ selectedPeriod, setSharedVariable }) {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [currData, setCurrData] = useState([]);
   const [location, setLocation] = useState({});
@@ -32,8 +34,8 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let dataUrl = `https://backend-node-y6o2.onrender.com/${selectedPeriod}/data`;
-        let locationUrl = `https://backend-node-y6o2.onrender.com/${selectedPeriod}/location`;
+        let dataUrl = `http://localhost:3100/${selectedPeriod}/data`;
+        let locationUrl = `http://localhost:3100/${selectedPeriod}/location`;
 
         const [dataResponse, locationResponse] = await Promise.all([
           fetch(dataUrl),
@@ -58,13 +60,33 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
     fetchData();
   }, [selectedPeriod]);
 
-  const handlePlaceClick = (index) => {
+  const fetchInformation = async (name, filteredData, idx) => {
+    try {
+      const response = await fetch(`http://localhost:3100/${name}/info`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.text();
+      // Create a copy of filteredData to ensure immutability
+      const updatedData = [...filteredData];
+
+      // Add the fetched info to the specific item
+      updatedData[idx] = { ...updatedData[idx], info: data };
+
+      // Update the state with the modified data
+      setSharedVariable(updatedData[idx]);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+  };
+
+  const handlePlaceClick = async (index) => {
     const marker = markersRef.current[index];
     if (marker) {
       const latLng = marker.getLatLng();
       setMapCenter(latLng);
       setMapZoom(6);
-      setSharedVariable(filteredData[index]);
+      await fetchInformation(filteredData[index].city, filteredData, index);
       marker.openPopup();
     } else {
       console.error("Marker not found at index:", index);
@@ -81,6 +103,10 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
   };
 
   const MapController = ({ center, zoom }) => {
+    MapController.propTypes = {
+      center: PropTypes.arrayOf(PropTypes.number).isRequired,
+      zoom: PropTypes.number.isRequired,
+    };
     const map = useMap();
     useEffect(() => {
       map.setView(center, zoom);
@@ -152,20 +178,27 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
               <li
                 key={index}
                 className="text-black font-serif hover:scale-105 hover:bg-yellow-800/40 text-lg group"
-                title={place.current_name} 
+                title={place.current_name}
               >
-                <a href="#" onClick={() => handlePlaceClick(index)} className="group-hover:underline">
+                <a
+                  href="#"
+                  onClick={() => handlePlaceClick(index)}
+                  className="group-hover:underline"
+                >
                   {index + 1}. {place.city}
                   {place.current_name && (
                     <span className="hidden group-hover:inline text-sm">
-                      {" "} (Currently: {place.current_name})
+                      {" "}
+                      (Currently: {place.current_name})
                     </span>
                   )}
                 </a>
               </li>
             ))}
             {filteredData.length === 0 && (
-              <li className="text-black font-serif text-lg">No results found</li>
+              <li className="text-black font-serif text-lg">
+                No results found
+              </li>
             )}
           </ul>
         </div>
@@ -182,5 +215,9 @@ function Map({ selectedPeriod, sharedVariable, setSharedVariable }) {
     </div>
   );
 }
+Map.propTypes = {
+  selectedPeriod: PropTypes.string.isRequired,
+  setSharedVariable: PropTypes.func.isRequired,
+};
 
 export default Map;

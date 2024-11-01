@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,6 +5,7 @@ import {
   faBuilding,
   faChessRook,
 } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from 'prop-types';
 
 const Dock = ({ children }) => {
   return (
@@ -30,6 +30,23 @@ const DockIcon = ({ icon, label, timeframe, textColor, onClick }) => {
   );
 };
 
+DockIcon.propTypes = {
+  icon: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  timeframe: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+Dock.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+
+
+Footer.propTypes = {
+  onPeriodChange: PropTypes.func.isRequired,
+};
 
 function Footer({ onPeriodChange }) {
   const [isScrolled, setIsScrolled] = useState(false);

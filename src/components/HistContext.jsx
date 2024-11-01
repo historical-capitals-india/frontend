@@ -1,6 +1,7 @@
-import React from "react";
+import ReactMarkdown from "react-markdown";
+import PropTypes from "prop-types";
 import BgImage2 from "../assets/bgImage.jpg";
-import { FaArrowRight } from "react-icons/fa";
+import "../markdown.css";
 
 const bgImage2 = {
   backgroundImage: `url(${BgImage2})`,
@@ -33,20 +34,25 @@ const HistContext = ({ sharedVariable }) => {
           </div>
           <div className="w-[90vw] md:w-[80vw] h-[60vh] bg-white/50 rounded-md text-xl text-left px-[3%] pt-[2%] overflow-y-auto font-serif">
             <div className="pb-8">
-              <h1 className="text-2xl md:text-3xl font-bold font-serif">
+              <h1 className="text-2xl md:text-2xl font-bold font-serif">
                 Dynasty:{" "}
                 <span className="text-md font-normal">
                   {sharedVariable["dynasty"]}
                 </span>
               </h1>
-              <h1 className="text-2xl md:text-3xl font-bold font-serif">
+              <h1 className="text-2xl md:text-2xl font-bold font-serif">
                 Empire:{" "}
                 <span className="text-md font-normal">
                   {sharedVariable["empire"]}
                 </span>
               </h1>
             </div>
-            {sharedVariable["information"]}
+            <div className="markdown-content">
+              <ReactMarkdown>
+                {sharedVariable["info"]}
+              </ReactMarkdown>
+            </div>
+
             <div className="pt-4">
               <h1 className="text-xl md:text-2xl font-serif font-semibold">
                 References:
@@ -78,6 +84,16 @@ const HistContext = ({ sharedVariable }) => {
       </section>
     </div>
   );
+};
+HistContext.propTypes = {
+  sharedVariable: PropTypes.shape({
+    city: PropTypes.string,
+    year: PropTypes.string,
+    dynasty: PropTypes.string,
+    empire: PropTypes.string,
+    info: PropTypes.string,
+    reference: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
 };
 
 export default HistContext;

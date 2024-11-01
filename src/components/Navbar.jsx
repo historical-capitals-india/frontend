@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Contact from "./Contact";
 import Feedback from "./Feedback";
 import About from "./About";
 import Logo1 from "../assets/logo1.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FaBars } from "react-icons/fa";
 
-function Navbar({ onSearch }) {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+function Navbar() {
+  // const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,7 +15,7 @@ function Navbar({ onSearch }) {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,21 +35,21 @@ function Navbar({ onSearch }) {
     };
   }, []);
 
-  const openSearch = () => {
-    setIsSearchOpen(true);
-  };
+  // const openSearch = () => {
+  //   setIsSearchOpen(true);
+  // };
 
-  const closeSearch = () => {
-    setIsSearchOpen(false);
-  };
+  // const closeSearch = () => {
+  //   setIsSearchOpen(false);
+  // };
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  // const handleSearchChange = (e) => {
+  //   setSearchTerm(e.target.value);
+  // };
 
-  const handleSearchSubmit = () => {
-    onSearch(searchTerm);
-  };
+  // const handleSearchSubmit = () => {
+  //   onSearch(searchTerm);
+  // };
 
   const isMobile = windowWidth < 1024;
   const bgColor = isMobile || isScrolled ? "bg-white/60" : "bg-transparent";
@@ -88,7 +86,7 @@ function Navbar({ onSearch }) {
         <div className="container flex items-center justify-between py-2 pl-10 space-x-2 w-[100vw]">
           {/* 1st FlexBox - Logo*/}
           <div className="flex justify-evenly space-x-8  text-md md:text-2xl">
-            <a href="https://historical-indian-cities.netlify.app/" className="flex justify-center">
+            <a href="https://historical-capitals-india.netlify.app/" className="flex justify-center">
               <img
                 src={logo}
                 alt="Logo"

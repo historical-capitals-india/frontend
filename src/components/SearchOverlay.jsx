@@ -1,7 +1,7 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FaSearch } from "react-icons/fa";
+import PropTypes from 'prop-types';
 
 const SearchOverlay = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -29,6 +29,10 @@ const SearchOverlay = ({ isOpen, onClose }) => {
         </div>
     </div>
   );
+};
+SearchOverlay.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default SearchOverlay;

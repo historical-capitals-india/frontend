@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Hero from "./components/Hero";
 import HistContext from "./components/HistContext";
 import Chatbot from "./components/Chatbot"

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import BgImage from "../assets/bgImage.jpg";
 import Navbar from "./Navbar";
-import { FaArrowRight } from "react-icons/fa";
 import Map from "./Map";
 import Footer from "./Footer";
-import Chatbot from "./Chatbot";
 
 const bgImage = {
   backgroundImage: `url(${BgImage})`,
@@ -37,6 +36,10 @@ const Hero = ({sharedVariable,setSharedVariable}) => {
       </section>
     </main>
   );
+};
+Hero.propTypes = {
+  sharedVariable: PropTypes.any.isRequired,
+  setSharedVariable: PropTypes.func.isRequired,
 };
 
 export default Hero;

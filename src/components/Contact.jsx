@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 function Contact({ onClose }) {
   let [imgData, setImgData] = useState(null);
@@ -96,5 +97,8 @@ function Contact({ onClose }) {
     </div>
   );
 }
+Contact.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
 export default Contact;

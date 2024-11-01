@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -116,5 +117,8 @@ function Feedback({ onClose }) {
     </div>
   );
 }
+Feedback.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
 export default Feedback;

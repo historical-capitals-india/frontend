@@ -1,6 +1,6 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 function About({ onClose }) {
   return (
@@ -94,5 +94,8 @@ function About({ onClose }) {
     </div>
   );
 }
+About.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
 export default About;
