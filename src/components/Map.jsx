@@ -34,8 +34,8 @@ function Map({ selectedPeriod, setSharedVariable }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let dataUrl = `http://localhost:3100/${selectedPeriod}/data`;
-        let locationUrl = `http://localhost:3100/${selectedPeriod}/location`;
+        let dataUrl = `https://backend-node-y6o2.onrender.com/${selectedPeriod}/data`;
+        let locationUrl = `https://backend-node-y6o2.onrender.com/${selectedPeriod}/location`;
 
         const [dataResponse, locationResponse] = await Promise.all([
           fetch(dataUrl),
@@ -62,7 +62,7 @@ function Map({ selectedPeriod, setSharedVariable }) {
 
   const fetchInformation = async (name, filteredData, idx) => {
     try {
-      const response = await fetch(`http://localhost:3100/${name}/info`);
+      const response = await fetch(`https://backend-node-y6o2.onrender.com/${name}/info`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
