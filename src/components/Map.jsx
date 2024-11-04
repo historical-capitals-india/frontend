@@ -30,7 +30,23 @@ function Map({ selectedPeriod, setSharedVariable }) {
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
+  const hideSidebar = () => {
+    setIsSidebarVisible(false);
+  };
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        // Adjust as per your md breakpoint
+        hideSidebar();
+      }
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
